@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void validate(String userName, String userPassword){
-        if ( (userName == "Admin") && (userPassword == "Admin") ) {
+    private void validate(String userName , String userPassword){
+        if ( (userName.equals("Admin")) && (userPassword.equals("Admin")) ) {
             Intent intent = new Intent(MainActivity.this, SecondActivity.class ) ;
             startActivity(intent);
         }

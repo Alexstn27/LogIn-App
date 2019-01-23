@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Login.app</string>
+    <string name="btnLogin">Create and dsiplay a new Activity</string>
 </resources>
