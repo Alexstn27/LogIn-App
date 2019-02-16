@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     else {
                         DatabaseHelper dp=new DatabaseHelper(ctx);
+                        dp.putInformation(dp,username,userpass);
                         Toast.makeText(getBaseContext(),"registration succesfull",Toast.LENGTH_LONG).show();
                         finish();
 
