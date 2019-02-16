@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //TODO: adding toast message login error
+        //TODO: adding toast message login error :)
       /*  Context context = getApplicationContext();
         CharSequence text = "Wrong Name or Password";
         int duration = Toast.LENGTH_SHORT;
