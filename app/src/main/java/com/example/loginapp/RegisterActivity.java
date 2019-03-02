@@ -3,7 +3,7 @@ package com.example.loginapp;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,12 +12,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText editText2,EtPassword,editText3;
-    String username,userpass,conpass;
+    EditText usernameEditText, passwordEditText, repeatPasswordEditText, emailEditText;
+    String username,userpass,conpass, email;
     Button button;
     Context ctx=this;
 
@@ -27,27 +26,29 @@ public class RegisterActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_register);
 
-            editText2=(EditText)findViewById(R.id.editText2);
-            EtPassword=(EditText)findViewById(R.id.EtPassword);
-            editText3=(EditText)findViewById(R.id.editText3);
+            usernameEditText =(EditText)findViewById(R.id.editText2);
+            passwordEditText =(EditText)findViewById(R.id.EtPassword);
+            repeatPasswordEditText =(EditText)findViewById(R.id.editText3);
+            emailEditText = (EditText) findViewById(R.id.editText4);
             button=(Button)findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    username=editText2.getText().toString();
-                    userpass=EtPassword.getText().toString();
-                    conpass=editText3.getText().toString();
+                    username= usernameEditText.getText().toString();
+                    userpass= passwordEditText.getText().toString();
+                    conpass= repeatPasswordEditText.getText().toString();
+                    email= emailEditText.getText().toString();
 
                     if (!(userpass.equals(conpass))){
                         Toast.makeText(getBaseContext(),"password not matching",Toast.LENGTH_LONG).show();
-                        EtPassword.setText("");
-                        editText2.setText("");
-                        editText3.setText("");
+                        passwordEditText.setText("");
+                        usernameEditText.setText("");
+                        repeatPasswordEditText.setText("");
                         finish();
                     }
                     else {
                         DatabaseHelper dp=new DatabaseHelper(ctx);
-                        dp.putInformation(dp,username,userpass);
+                        long id = dp.insertUser(username, email, userpass);
                         Toast.makeText(getBaseContext(),"registration succesfull",Toast.LENGTH_LONG).show();
                         finish();
 

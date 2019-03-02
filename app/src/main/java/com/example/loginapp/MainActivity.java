@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText Name ;
@@ -54,7 +56,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void validate(String userName , String userPassword){
-        if ( (userName.equals("Admin")) && (userPassword.equals("Admin")) ) {
+        DatabaseHelper dp=new DatabaseHelper(this);
+        //List<UserModel> allUsersFromDatabase = dp.getAllUsers();
+
+        UserModel userFromDatabase = dp.getUsername(userName);
+        String username = "";
+        String password = "";
+        if (userFromDatabase.getPass() != null) {
+            password = userFromDatabase.getPass();
+        }
+
+        if (userFromDatabase.getName() != null) {
+            username = userFromDatabase.getName();
+        }
+        if (username.equals(userName)  && password.equals(userPassword)){
             Intent intent = new Intent(MainActivity.this, SecondActivity.class );
             startActivity(intent);
         }else{

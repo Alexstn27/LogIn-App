@@ -35,7 +35,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long insertUser(String username, String email, String pass) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(UserModel.KEY_NAME, username);
         values.put(UserModel.KEY_EMAIL, email);
@@ -73,6 +72,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return user;
     }
+
+
+    public UserModel getUsername(String username) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(UserModel.TABLE_NAME,
+                new String[]{ UserModel.KEY_ID, UserModel.KEY_NAME, UserModel.KEY_EMAIL, UserModel.KEY_PASS},
+                UserModel.KEY_NAME + "=?", new String[]{username},null, null, null, null);
+                //
+
+
+
+        UserModel user = new UserModel();
+
+        if (cursor.getCount() < 1)
+            return user;
+        else{
+
+            cursor.moveToFirst();
+
+            user = new UserModel(
+                    cursor.getInt(cursor.getColumnIndex(UserModel.KEY_ID)),
+                    cursor.getString(cursor.getColumnIndex(UserModel.KEY_NAME)),
+                    cursor.getString(cursor.getColumnIndex(UserModel.KEY_EMAIL)),
+                    cursor.getString(cursor.getColumnIndex(UserModel.KEY_PASS)));
+
+            // close the db connection
+            cursor.close();
+
+            return user;
+        }
+
+    }
+
+
 
 
     public List<UserModel> getAllUsers() {

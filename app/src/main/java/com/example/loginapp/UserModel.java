@@ -14,7 +14,7 @@ public class UserModel {
     private String pass;
 
     public static final String CREATE_TABLE = "CREATE TABLE "
-            + TABLE_USER + "(" + KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + TABLE_NAME + "(" + KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + KEY_NAME + " TEXT, "
             + KEY_PASS + " TEXT, "
             + KEY_EMAIL + " TEXT );";
