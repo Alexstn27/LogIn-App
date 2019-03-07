@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -55,29 +56,12 @@ public class RegisterActivity extends AppCompatActivity {
                     }
 
                 }
-            });
-        }
-
-
-
-  /*           //Add back button in toolbar
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item){
-            int id = item.getItemId();
-
-            if(id == android.R.id.home){
-                this.finish();
-            }
-
-            return super.onOptionsItemSelected(item);
-        }}
+            });}
 
 
 
 
+             //Add back button in toolbar
 
 
 
@@ -87,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
     //TODO: adding action event to Register NOW button (parse data filled by user and validate) - email address will contain @ and . chars
 
 
-  /*  public static boolean isEmailValid(String email) {
+     public static boolean isEmailValid(String email) {
 
         String regExpn = "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
                 + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
@@ -95,14 +79,10 @@ public class RegisterActivity extends AppCompatActivity {
                 + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
                 + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
                 + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
-        CharSequence inputStr = email;
-        Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputStr);
-        if (matcher.matches())
-            return true;
-        else
-            return false;
-    } */
+         Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+         return matcher.matches();
+    }
 
 
   private boolean validEmail(String email)
@@ -193,7 +173,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 // TODO: Use DatabaseHelper InsertUser method to save user credentials.
-
 
 
 
