@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,28 @@ public class RegisterActivity extends AppCompatActivity {
     Button button;
     Context ctx=this;
 
+    public enum StatusMessages {
+
+        password_mismatch {
+            @Override
+            public String toString() {
+                return "password not matching";
+            }
+        },
+        registration_succesfull {
+            @Override
+            public String toString() {
+                return "registration succesfull";
+            }
+        },
+        invalid_email {
+            @Override
+            public String toString() {
+                return "email is invalid";
+            }
+        }
+
+    }
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +62,32 @@ public class RegisterActivity extends AppCompatActivity {
                     userpass= passwordEditText.getText().toString();
                     conpass= repeatPasswordEditText.getText().toString();
                     email= emailEditText.getText().toString();
+                    List<String> errorList = new ArrayList<String>();
 
-                    if (!(userpass.equals(conpass))){
-                        Toast.makeText(getBaseContext(),"password not matching",Toast.LENGTH_LONG).show();
-                        passwordEditText.setText("");
-                        usernameEditText.setText("");
-                        repeatPasswordEditText.setText("");
-                        finish();
+
+                    if (!isValid(userpass, conpass, errorList)){
+
+                          customToast(StatusMessages.password_mismatch);
+                          passwordEditText.setText("");
+                          repeatPasswordEditText.setText("");
                     }
                     else {
-                        DatabaseHelper dp=new DatabaseHelper(ctx);
-                        long id = dp.insertUser(username, email, userpass);
-                        Toast.makeText(getBaseContext(),"registration succesfull",Toast.LENGTH_LONG).show();
-                        finish();
+
+
+                        if (validEmail(email) == false) // if(!validEmail(email))
+                        {
+                            customToast(StatusMessages.invalid_email);
+                            emailEditText.setText("");
+
+                        } else {
+
+                            DatabaseHelper dp=new DatabaseHelper(ctx);
+                            long id = dp.insertUser(username, email, userpass);
+                            customToast(StatusMessages.registration_succesfull);
+                            finish();
+
+                        }
+
 
                     }
 
@@ -63,35 +99,27 @@ public class RegisterActivity extends AppCompatActivity {
 
              //Add back button in toolbar
 
-
-
-
-
-
-    //TODO: adding action event to Register NOW button (parse data filled by user and validate) - email address will contain @ and . chars
-
-
-     public static boolean isEmailValid(String email) {
-
-        String regExpn = "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
-                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
-                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
-                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
-                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
-         Pattern pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-         return matcher.matches();
-    }
+     private void customToast (StatusMessages message){
+         Toast toast =  Toast.makeText(getBaseContext(),message.toString(),Toast.LENGTH_LONG);
+         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 40);
+         toast.show();
+     }
 
 
   private boolean validEmail(String email)
     {
-        // TODO Auto-generated method stub
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         String emailPatternnew = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]+";
-        String domain = email.substring(email.indexOf('@'), email.length());
-        String last = domain.substring(domain.indexOf('.'),domain.length());
+        String domain, last;
+        try {
+                domain = email.substring(email.indexOf('@'), email.length());
+                last = domain.substring(domain.indexOf('.'),domain.length());
+
+             } catch (IndexOutOfBoundsException e) {
+
+                return false;
+            }
+
         if (email.matches(emailPattern) && (last.length() ==3 || last.length() == 4)) // check @domain.nl or @domain.com or @domain.org
         {
             return true;
@@ -104,34 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     //TODO: password acceptance criteria : 8 char length
 
-
-
-    public static void main(String[] args) {
-
-        Scanner in = new Scanner(System.in);
-        System.out.print("Please enter a given  password : ");
-        String passwordhere = in.nextLine();
-        System.out.print("Please re-enter the password to confirm : ");
-        String confirmhere = in.nextLine();
-
-        List<String> errorList = new ArrayList<String>();
-
-        while (!isValid(passwordhere, confirmhere, errorList)) {
-            System.out.println("The password entered here  is invalid");
-            for (String error : errorList) {
-                System.out.println(error);
-            }
-
-            System.out.print("Please enter a given  password : ");
-            passwordhere = in.nextLine();
-            System.out.print("Please re-enter the password to confirm : ");
-            confirmhere = in.nextLine();
-        }
-        System.out.println("your password is: " + passwordhere);
-
-    }
-
-    public static boolean isValid(String passwordhere, String confirmhere, List<String> errorList) {
+    private boolean isValid(String passwordhere, String confirmhere, List<String> errorList) {
 
         Pattern specailCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
