@@ -11,8 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +43,39 @@ public class RegisterActivity extends AppCompatActivity {
             public String toString() {
                 return "email is invalid";
             }
+        },
+        password_length {
+            @Override
+            public String toString() {
+                return "Password length must have at least 8 character !!";
+            }
+        },
+        password_special_char {
+            @Override
+            public String toString(){
+                return "Password must have at least one special character !!";
+            }
+        },
+        password_uppercase_char {
+            @Override
+            public String toString() {
+                return "Password must have at least one uppercase character !!";
+            }
+        },
+        password_lowercase_char {
+            @Override
+            public String toString() {
+                return "Password must have at least one lowercase character !!";
+            }
+        },
+        password_digit_char{};
+
+        @Override
+        public String toString() {
+            return "Password must have at least one digit character !!";
         }
+
+
 
     }
 
@@ -62,12 +96,20 @@ public class RegisterActivity extends AppCompatActivity {
                     userpass= passwordEditText.getText().toString();
                     conpass= repeatPasswordEditText.getText().toString();
                     email= emailEditText.getText().toString();
+                   
                     List<String> errorList = new ArrayList<String>();
 
+                    String errorList = "1000";
+                    Vector myVec = new Vector();
+//Convert the string to a char array and then just add each char to the vector
+                    char[] sChars = errorList.toCharArray();
+                    for(int i = 0; i < errorList.length(); ++i) {
+                        myVec.add(sChars[i]);
+                    }
 
                     if (!isValid(userpass, conpass, errorList)){
-
-                          customToast(StatusMessages.password_mismatch);
+                        //customToast(errorList[0]);
+                        customToast(StatusMessages.password_mismatch);
                           passwordEditText.setText("");
                           repeatPasswordEditText.setText("");
                     }
@@ -132,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     //TODO: password acceptance criteria : 8 char length
 
-    private boolean isValid(String passwordhere, String confirmhere, List<String> errorList) {
+    private boolean isValid(String passwordhere, String confirmhere, List<StatusMessages> errorList) { // refactoring List<StatusMessage> and add all error messages into enum structure
 
         Pattern specailCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
@@ -143,27 +185,27 @@ public class RegisterActivity extends AppCompatActivity {
         boolean flag=true;
 
         if (!passwordhere.equals(confirmhere)) {
-            errorList.add("password and confirm password does not match");
+            customToast(StatusMessages.password_mismatch);
             flag=false;
         }
         if (passwordhere.length() < 8) {
-            errorList.add("Password length must have at least 8 character !!");
+            customToast(StatusMessages.password_length);
             flag=false;
         }
         if (!specailCharPatten.matcher(passwordhere).find()) {
-            errorList.add("Password must have atleast one specail character !!");
+            customToast(StatusMessages.password_special_char);
             flag=false;
         }
         if (!UpperCasePatten.matcher(passwordhere).find()) {
-            errorList.add("Password must have atleast one uppercase character !!");
+            customToast(StatusMessages.password_uppercase_char);
             flag=false;
         }
         if (!lowerCasePatten.matcher(passwordhere).find()) {
-            errorList.add("Password must have atleast one lowercase character !!");
+            customToast(StatusMessages.password_lowercase_char);
             flag=false;
         }
         if (!digitCasePatten.matcher(passwordhere).find()) {
-            errorList.add("Password must have atleast one digit character !!");
+            customToast(StatusMessages.password_digit_char);
             flag=false;
         }
 
@@ -179,10 +221,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 // TODO: Use getUser(id) method to validate inserting operation.
-
-
-
-
 
 
 
