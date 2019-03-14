@@ -96,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userpass= passwordEditText.getText().toString();
                     conpass= repeatPasswordEditText.getText().toString();
                     email= emailEditText.getText().toString();
-                   
+
                     List<String> errorList = new ArrayList<String>();
 
                     String errorList = "1000";
