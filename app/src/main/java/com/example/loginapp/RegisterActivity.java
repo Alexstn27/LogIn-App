@@ -97,19 +97,11 @@ public class RegisterActivity extends AppCompatActivity {
                     conpass= repeatPasswordEditText.getText().toString();
                     email= emailEditText.getText().toString();
 
-                    List<String> errorList = new ArrayList<String>();
-
-                    String errorList = "1000";
-                    Vector myVec = new Vector();
-//Convert the string to a char array and then just add each char to the vector
-                    char[] sChars = errorList.toCharArray();
-                    for(int i = 0; i < errorList.length(); ++i) {
-                        myVec.add(sChars[i]);
-                    }
+                    List<StatusMessages> errorList = new ArrayList<StatusMessages>();
 
                     if (!isValid(userpass, conpass, errorList)){
-                        //customToast(errorList[0]);
-                        customToast(StatusMessages.password_mismatch);
+                          customToast(errorList.get(0));
+//                        customToast(StatusMessages.password_mismatch);
                           passwordEditText.setText("");
                           repeatPasswordEditText.setText("");
                     }
@@ -180,36 +172,38 @@ public class RegisterActivity extends AppCompatActivity {
         Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
         Pattern lowerCasePatten = Pattern.compile("[a-z ]");
         Pattern digitCasePatten = Pattern.compile("[0-9 ]");
-        errorList.clear();
 
-        boolean flag=true;
+        boolean flag = true;
 
         if (!passwordhere.equals(confirmhere)) {
-            customToast(StatusMessages.password_mismatch);
-            flag=false;
+            errorList.add(StatusMessages.password_mismatch);
+            //customToast(StatusMessages.password_mismatch);
+            flag = false;
         }
         if (passwordhere.length() < 8) {
-            customToast(StatusMessages.password_length);
-            flag=false;
+            errorList.add(StatusMessages.password_length);
+            flag = false;
         }
         if (!specailCharPatten.matcher(passwordhere).find()) {
-            customToast(StatusMessages.password_special_char);
-            flag=false;
+            errorList.add(StatusMessages.password_special_char);
+            flag = false;
         }
         if (!UpperCasePatten.matcher(passwordhere).find()) {
-            customToast(StatusMessages.password_uppercase_char);
-            flag=false;
+            errorList.add(StatusMessages.password_uppercase_char);
+            flag = false;
         }
         if (!lowerCasePatten.matcher(passwordhere).find()) {
-            customToast(StatusMessages.password_lowercase_char);
-            flag=false;
+            errorList.add(StatusMessages.password_lowercase_char);
+            flag =  false;
         }
         if (!digitCasePatten.matcher(passwordhere).find()) {
-            customToast(StatusMessages.password_digit_char);
-            flag=false;
+            errorList.add(StatusMessages.password_digit_char);
+            flag = false;
         }
 
-        return flag;} }
+        return flag;
+    }
+}
 
 
 

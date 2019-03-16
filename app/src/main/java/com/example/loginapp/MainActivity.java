@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void validate(String userName , String userPassword){
-        DatabaseHelper dp=new DatabaseHelper(this);
+    private void validate(String userName , String userPassword) {
+        DatabaseHelper dp = new DatabaseHelper(this);
         //List<UserModel> allUsersFromDatabase = dp.getAllUsers();
 
         UserModel userFromDatabase = dp.getUsername(userName);
@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
         if (userFromDatabase.getName() != null) {
             username = userFromDatabase.getName();
         }
-        if (username.equals(userName)  && password.equals(userPassword)){
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class );
+        if (username.equals(userName) && password.equals(userPassword)) {
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             startActivity(intent);
-        }else{
+        } else {
             Context context = getApplicationContext();
             CharSequence text = "Wrong Name or Password";
             int duration = Toast.LENGTH_SHORT;
@@ -85,12 +85,14 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         }
 
-
+    }
         //TODO:hide keyboard when click outside of EditText
 
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+//        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+
         private void hideSoftKeyboard() {
             Activity activity = (Activity) sContext;
             View view = this.getCurrentFocus();
@@ -112,6 +114,6 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show(); */
 
-    }
+
 
 }
