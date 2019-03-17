@@ -117,6 +117,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                             DatabaseHelper dp=new DatabaseHelper(ctx);
                             long id = dp.insertUser(username, email, userpass);
+                            // acest id trebuie folosit pe o metoda dp.getUser(id) -> usermodel
+                            //trebuie sa compari usermodel.username cu username
                             customToast(StatusMessages.registration_succesfull);
                             finish();
 
@@ -204,12 +206,6 @@ public class RegisterActivity extends AppCompatActivity {
         return flag;
     }
 }
-
-
-
-
-
-// TODO: Use DatabaseHelper InsertUser method to save user credentials.
 
 
 
