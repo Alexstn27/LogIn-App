@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button button;
     Context ctx=this;
 
+
     public enum StatusMessages {
 
         password_mismatch {
@@ -96,6 +97,15 @@ public class RegisterActivity extends AppCompatActivity {
                     userpass= passwordEditText.getText().toString();
                     conpass= repeatPasswordEditText.getText().toString();
                     email= emailEditText.getText().toString();
+
+                   /* username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if (!hasFocus) {
+                                hideKeyboard(v);
+                            }
+                        }
+                    });*/
 
                     List<StatusMessages> errorList = new ArrayList<StatusMessages>();
 
@@ -206,6 +216,8 @@ public class RegisterActivity extends AppCompatActivity {
         return flag;
     }
 }
+
+
 
 
 
