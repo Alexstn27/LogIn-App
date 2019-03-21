@@ -98,14 +98,14 @@ public class RegisterActivity extends AppCompatActivity {
                     conpass= repeatPasswordEditText.getText().toString();
                     email= emailEditText.getText().toString();
 
-                   /* username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if (!hasFocus) {
                                 hideKeyboard(v);
                             }
                         }
-                    });*/
+                    });
 
                     List<StatusMessages> errorList = new ArrayList<StatusMessages>();
 
