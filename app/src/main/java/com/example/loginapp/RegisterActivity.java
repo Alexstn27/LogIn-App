@@ -1,11 +1,13 @@
 package com.example.loginapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -80,6 +82,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    private void setHideKeyboardBehaviour(EditText edt)  {
+        edt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+    }
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -89,6 +101,21 @@ public class RegisterActivity extends AppCompatActivity {
             passwordEditText =(EditText)findViewById(R.id.EtPassword);
             repeatPasswordEditText =(EditText)findViewById(R.id.editText3);
             emailEditText = (EditText) findViewById(R.id.editText4);
+
+            setHideKeyboardBehaviour(usernameEditText);
+            setHideKeyboardBehaviour(passwordEditText);
+            setHideKeyboardBehaviour(repeatPasswordEditText);
+            setHideKeyboardBehaviour(emailEditText);
+
+//            usernameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                @Override
+//                public void onFocusChange(View v, boolean hasFocus) {
+//                    if (!hasFocus) {
+//                        hideKeyboard(v);
+//                    }
+//                }
+//            });
+
             button=(Button)findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -98,14 +125,6 @@ public class RegisterActivity extends AppCompatActivity {
                     conpass= repeatPasswordEditText.getText().toString();
                     email= emailEditText.getText().toString();
 
-                    username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                        @Override
-                        public void onFocusChange(View v, boolean hasFocus) {
-                            if (!hasFocus) {
-                                hideKeyboard(v);
-                            }
-                        }
-                    });
 
                     List<StatusMessages> errorList = new ArrayList<StatusMessages>();
 
@@ -133,6 +152,8 @@ public class RegisterActivity extends AppCompatActivity {
                             finish();
 
                         }
+//                        if(username == UserModel){
+//                        };
 
 
                     }
@@ -141,7 +162,10 @@ public class RegisterActivity extends AppCompatActivity {
             });}
 
 
-
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
              //Add back button in toolbar
 
