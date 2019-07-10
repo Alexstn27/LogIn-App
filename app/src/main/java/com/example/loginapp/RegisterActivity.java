@@ -35,6 +35,12 @@ public class RegisterActivity extends AppCompatActivity {
                 return "password not matching";
             }
         },
+        registration_error {
+            @Override
+            public String toString() {
+                return "Database registration error";
+            }
+        },
         registration_succesfull {
             @Override
             public String toString() {
@@ -102,19 +108,19 @@ public class RegisterActivity extends AppCompatActivity {
             repeatPasswordEditText =(EditText)findViewById(R.id.editText3);
             emailEditText = (EditText) findViewById(R.id.editText4);
 
-            setHideKeyboardBehaviour(usernameEditText);
-            setHideKeyboardBehaviour(passwordEditText);
-            setHideKeyboardBehaviour(repeatPasswordEditText);
-            setHideKeyboardBehaviour(emailEditText);
+//            setHideKeyboardBehaviour(usernameEditText);
+//            setHideKeyboardBehaviour(passwordEditText);
+//            setHideKeyboardBehaviour(repeatPasswordEditText);
+//            setHideKeyboardBehaviour(emailEditText);
 
-//            usernameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//                @Override
-//                public void onFocusChange(View v, boolean hasFocus) {
-//                    if (!hasFocus) {
-//                        hideKeyboard(v);
-//                    }
-//                }
-//            });
+            usernameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        hideKeyboard(v);
+                    }
+                }
+            });
 
             button=(Button)findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener(){
@@ -148,12 +154,17 @@ public class RegisterActivity extends AppCompatActivity {
                             long id = dp.insertUser(username, email, userpass);
                             // acest id trebuie folosit pe o metoda dp.getUser(id) -> usermodel
                             //trebuie sa compari usermodel.username cu username
+                            UserModel userFromDB = dp.getUser ( id );
+                            if (userFromDB.getName ().equals ( username )) {
+                                customToast(StatusMessages.registration_succesfull);
+
+                            } else {
+                                customToast ( StatusMessages.registration_error );
+                            }
                             customToast(StatusMessages.registration_succesfull);
                             finish();
 
                         }
-//                        if(username == UserModel){
-//                        };
 
 
                     }

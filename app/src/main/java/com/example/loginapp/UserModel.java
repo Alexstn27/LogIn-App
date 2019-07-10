@@ -8,23 +8,17 @@ public class UserModel {
     public static final String KEY_PASS = "pass";
     private static final String TABLE_USER = "users";
 
-    private int id;
-    private String name;
-    private String email;
-    private String pass;
-
     public static final String CREATE_TABLE = "CREATE TABLE "
             + TABLE_NAME + "(" + KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + KEY_NAME + " TEXT, "
             + KEY_PASS + " TEXT, "
             + KEY_EMAIL + " TEXT );";
 
-/*    public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + COLUMN_NOTE + " TEXT,"
-                    + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
-                    + ")";*/
+
+    private int id;
+    private String name;
+    private String email;
+    private String pass;
 
     public UserModel() {
     }
