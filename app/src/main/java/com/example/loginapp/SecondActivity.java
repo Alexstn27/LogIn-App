@@ -12,12 +12,15 @@ public class SecondActivity extends AppCompatActivity {
     private Button regButton ;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         setupUIViews();
     }
+
 
     private void setupUIViews(){
         userName = (EditText)findViewById(R.id.etName) ;
