@@ -88,16 +88,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void setHideKeyboardBehaviour(EditText edt)  {
-        edt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
-            }
-        });
-    }
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -108,10 +98,6 @@ public class RegisterActivity extends AppCompatActivity {
             repeatPasswordEditText =(EditText)findViewById(R.id.editText3);
             emailEditText = (EditText) findViewById(R.id.editText4);
 
-//            setHideKeyboardBehaviour(usernameEditText);
-//            setHideKeyboardBehaviour(passwordEditText);
-//            setHideKeyboardBehaviour(repeatPasswordEditText);
-//            setHideKeyboardBehaviour(emailEditText);
 
             usernameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
@@ -121,6 +107,8 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
             });
+
+
 
             button=(Button)findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener(){
@@ -178,7 +166,6 @@ public class RegisterActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-             //Add back button in toolbar
 
      private void customToast (StatusMessages message){
          Toast toast =  Toast.makeText(getBaseContext(),message.toString(),Toast.LENGTH_LONG);
