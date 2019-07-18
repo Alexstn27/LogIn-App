@@ -34,7 +34,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume ();
 
+        if (!Password.getText().toString().isEmpty()) {
+            Password.setText("");
+        }
 
+        if (!Name.getText().toString().isEmpty()) {
+            Name.setText("");
+        }
     }
 
     @Override
