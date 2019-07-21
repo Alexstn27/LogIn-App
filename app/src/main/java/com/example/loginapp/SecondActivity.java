@@ -26,8 +26,6 @@ public class SecondActivity extends AppCompatActivity {
         setupUIViews();
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -46,7 +44,6 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
->>>>>>> 48d3c42... Log out button added on toolbar
     private void setupUIViews(){
         userName = (EditText)findViewById(R.id.etName) ;
         userPassword = (EditText)findViewById(R.id.etPassword);
