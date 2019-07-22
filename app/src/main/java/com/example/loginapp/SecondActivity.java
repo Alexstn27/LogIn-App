@@ -20,9 +20,11 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        Toolbar toolbar =(Toolbar)findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
+         // setSupportActionBar(toolbar);
        // getActionBar().setDisplayHomeAsUpEnabled(false);
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         setupUIViews();
     }
 
@@ -30,13 +32,13 @@ public class SecondActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;//super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        return super.onOptionsItemSelected(item);
+        return true;//super.onOptionsItemSelected(item);
     }
 
     private void setSupportActionBar(Toolbar toolbar) {
