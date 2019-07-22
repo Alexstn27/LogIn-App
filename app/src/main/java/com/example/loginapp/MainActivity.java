@@ -58,8 +58,16 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             startActivity(intent);
         }
+
+        prefs= PreferenceManager.getDefaultSharedPreferences(this);
+        String name = prefs.getString ( "USERNAME", "" );
+        String password = prefs.getString ( "PASSWORD", "" );
+
+
         Name = (EditText)findViewById(R.id.etName);
         Password = (EditText)findViewById(R.id.etPassword);
+        Name.setText(name);
+        Password.setText(password); // why not show name and pass?
         Name.requestFocus();
         Login = (Button) findViewById(R.id.btnLogin);
         Register = (Button) findViewById(R.id.btnRegister);
@@ -113,8 +121,12 @@ public class MainActivity extends AppCompatActivity {
         prefs= PreferenceManager.getDefaultSharedPreferences(this);
         String name = prefs.getString ( "USERNAME", "" );
         String password = prefs.getString ( "PASSWORD", "" );
-
-        if(name != null && !name .isEmpty() && password != null && !password .isEmpty()) {
+        Boolean isLogged = prefs.getBoolean("IS_LOGGED", true);
+        if(name != null &&
+                !name .isEmpty() &&
+                password != null &&
+                !password .isEmpty() &&
+                isLogged) {
             return true;
         }
 
@@ -141,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
             prefs = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("IS_LOGGED", true);
             editor.putString("USERNAME",userName);
             editor.putString("PASSWORD",userPassword);
 
